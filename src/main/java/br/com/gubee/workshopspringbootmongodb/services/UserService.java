@@ -1,6 +1,7 @@
 package br.com.gubee.workshopspringbootmongodb.services;
 
 import br.com.gubee.workshopspringbootmongodb.domain.User;
+import br.com.gubee.workshopspringbootmongodb.dto.UserDTO;
 import br.com.gubee.workshopspringbootmongodb.repository.UserRepository;
 import br.com.gubee.workshopspringbootmongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User obj) {
+        return repository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDTO) {
+        return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
 }
